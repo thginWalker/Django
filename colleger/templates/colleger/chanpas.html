@@ -1,0 +1,78 @@
+
+{% extends "appraise/index_base.html" %}
+{% load static %}
+{% block mainbody %}
+
+    <link href="{% static 'appraise/assets/css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'appraise/bootstrap3-editable/css/bootstrap-editable.css' %}" rel="stylesheet" />
+    <link href="{% static 'appraise/bootstrap-table/css/bootstrap-table.min.css' %}" rel="stylesheet" />
+
+<script src="{% static 'appraise/assets/js/jquery-2.0.3.min.js' %}"></script>
+<script src="{% static 'appraise/assets/bootstrap3/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'appraise/bootstrap3-editable/js/bootstrap-editable.min.js' %}"></script>
+<script src="{% static 'appraise/bootstrap-table/js/bootstrap-table.min.js' %}"></script>
+<script src="{% static 'appraise//bootstrap-table/js/bootstrap-table-zh-CN.min.js' %}"></script>
+<style>
+td,th{
+   vertical-align: middle;
+   text-align: center
+        }
+.form-horizontal{
+margin:0 auto;
+}
+.form-group{
+	margin:30px 0;
+}
+.form-control{
+	width:400px;
+}
+#center{
+ margin:0 auto;
+ width:450px;
+}
+</style>
+<div class="col-sm-8">
+	 <div class="panel panel-default">
+		 <div class="panel-heading">
+			<h3 class="panel-title text-center">更改个人密码</h3>
+		 </div>
+	<div class="panel-body">
+	<form class="form-horizontal" role="form">
+		<div class="form-group">
+			<label for="uusername" class="col-sm-2 control-label">原始密码</label>
+			<div class="col-sm-10">
+			<input type="password" class="form-control" id="uusername" name="uusername">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="uusername" class="col-sm-2 control-label">修改密码</label>
+			<div class="col-sm-10">
+			<input type="password" class="form-control" id="uusername" name="uusername">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="uusername" class="col-sm-2 control-label">确认密码</label>
+			<div class="col-sm-10">
+			<input type="password" class="form-control" id="uusername" name="uusername">
+			</div>
+		</div>
+		
+		<div id="center"> 
+			<div class="btn-group">
+				 <a   type="button" class="btn btn-default"  href="/appraise/studentUpdate?id={{ contact.id }}">
+				 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改</a>
+			 </div>
+			 <div class="btn-group">
+				 <button   type="reset" class="btn btn-default" style="margin-left:20px;">
+				 <span class="glyphicon glyphicon-retweet" aria-hidden="true"></span>取消</button>
+			 </div>
+		 </div>
+	</form>
+
+
+
+
+
+ </div>
+ 
+ {% endblock %}

@@ -1,0 +1,114 @@
+
+{% extends "advisers/index_base.html" %}
+{% load static %}
+{% block mainbody %}
+
+    <link href="{% static 'appraise/assets/css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'appraise/bootstrap3-editable/css/bootstrap-editable.css' %}" rel="stylesheet" />
+    <link href="{% static 'appraise/bootstrap-table/css/bootstrap-table.min.css' %}" rel="stylesheet" />
+
+<script src="{% static 'appraise/assets/js/jquery-2.0.3.min.js' %}"></script>
+<script src="{% static 'appraise/assets/bootstrap3/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'appraise/bootstrap3-editable/js/bootstrap-editable.min.js' %}"></script>
+<script src="{% static 'appraise/bootstrap-table/js/bootstrap-table.min.js' %}"></script>
+<script src="{% static 'appraise//bootstrap-table/js/bootstrap-table-zh-CN.min.js' %}"></script>
+<style>
+td,th{
+   vertical-align: middle;
+   text-align: center
+        }
+.form-horizontal{
+margin:0 auto;
+}
+.form-group{
+	margin:30px 0;
+}
+.form-control{
+	width:400px;
+}
+#center{
+ margin:0 auto;
+ width:380px;
+}
+#sex-unique{
+margin:0;
+}
+</style>
+<div class="col-sm-8">
+	 <div class="panel panel-default">
+		 <div class="panel-heading">
+			<h3 class="panel-title text-center">更改个人信息</h3>
+		 </div>
+	<div class="panel-body">
+	<form class="form-horizontal" role="form">
+		<div class="form-group" id="username">
+			<label for="username" class="col-sm-4 control-label">用户名</label>
+			<div class="col-sm-8">
+		<!--	<input type="text" class="form-control" id="uusername" name="uusername">-->
+			<label for="uusername" class="col-sm-2  control-label">xuzhen</label>
+			</div>
+		</div>
+		<div class="form-group" id="name">
+			<label for="uusername" class="col-sm-4 control-label">姓名</label>
+			<div class="col-sm-8">
+			<label for="uusername" class="col-sm-2 control-label">xuzhen</label>
+			</div>
+		</div>
+		<div class="form-group" id="age">
+			<label for="uusername" class="col-sm-4 control-label">年龄</label>
+			<div class="col-sm-8">
+			<label for="uusername" class="col-sm-2 control-label" id="username">xuzhen</label>
+			</div>
+		</div>
+		<div class="form-group" id="idnumber">
+			<label for="uusername" class="col-sm-4 control-label">学号</label>
+			<div class="col-sm-8">
+			<label for="uusername" class="col-sm-2 control-label" id="username">xuzhen</label>
+			</div>
+		</div>
+		<div class="form-group" id="sex">
+			<label for="uusername" class="col-sm-4 control-label">性别</label>
+			<div class="col-sm-8">
+			<label for="uusername" class="col-sm-2 control-label" id="username">xuzhen</label>
+			</div>
+		</div>
+		<div class="form-group" id="email">
+			<label for="uusername" class="col-sm-4 control-label">邮箱</label>
+			<div class="col-sm-8">
+			<label for="uusername" class="col-sm-2 control-label" id="username">xuzhen</label>
+			</div>
+		</div>
+		<div id="center"> 
+			<div class="btn-group">
+				 <button   type="button" class="btn btn-default" id="update">
+				 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改</a>
+			 </div>
+		 </div>
+	</form>
+
+
+ </div>
+ 
+ <script>
+ $('#update').click(function(){
+	$('#username').html('<label for="username" class="col-sm-2 control-label">用户名</label><div class="col-sm-10"><input type="text" class="form-control" name="username"></div>');
+	$('#name').html('<label for="name" class="col-sm-2 control-label">姓名</label><div class="col-sm-10"><input type="text" class="form-control" name="name"></div>');
+	$('#age').html('<label for="age" class="col-sm-2 control-label">年龄</label><div class="col-sm-10"><input type="text" class="form-control" name="age"></div>');
+	$('#idnumber').html('<label for="idnumber" class="col-sm-2 control-label">工号</label><div class="col-sm-10"><input type="text" class="form-control" name="idnumber"></div>');
+	$('#sex').html('<div class="form-group" id="sex-unique"><label for="sex" class="col-sm-2 control-label">性别</label><div class="col-sm-10"><select class="form-control" name="sex"><option selected>&nbsp;&nbsp;&nbsp;&nbsp;请选择</option><option value="1">&nbsp;&nbsp;&nbsp;&nbsp;男</option><option value="0">&nbsp;&nbsp;&nbsp;&nbsp;女</option></select></div></div>');
+	$('#email').html('<label for="email" class="col-sm-2 control-label">邮箱</label><div class="col-sm-10"><input type="email" class="form-control" name="email"></div>');
+	
+	//确认框
+	$('#center').html('<div class="btn-group"><a  type="button" class="btn btn-default"  href="/appraise/confirm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>确认</a></div><div class="btn-group"><a  type="button" class="btn btn-default"  href="/appraise/chanmes"  style="margin-left:20px;"><span class="glyphicon glyphicon-retweet" aria-hidden="true"></span>返回</a></div>');
+ });
+ 
+ 
+ //字符串生成
+ //function createString(nickname,name)
+ //{
+	//var html = 
+	//return 
+ //}
+ </script>
+ 
+ {% endblock %}
