@@ -1,5 +1,5 @@
 
-{% extends "appraise/index_base.html" %}
+{% extends "colleger/index_base.html" %}
 {% load static %}
 {% block mainbody %}
 
@@ -21,13 +21,13 @@ td,th{
 <div class="col-sm-9">
 	 <div class="panel panel-default">
 		 <div class="panel-heading">
-			<h3 class="panel-title text-center">学生信息管理</h3>
+			<h3 class="panel-title text-center">查看信息管理</h3>
 		 </div>
 	 <div class="panel-body">
 			 <div id="toolbar" class="btn-group">
-			 <button id="btn_edit" type="button" class="btn btn-default"  data-toggle="modal" data-target="#adModal">
+			 <!-- <button id="btn_edit" type="button" class="btn btn-default"  data-toggle="modal" data-target="#adModal">
 			 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增</button>
-			<!-- <button id="btn_edit" type="button" class="btn btn-default" >
+			<button id="btn_edit" type="button" class="btn btn-default" >
 			 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改</button>
 			 <button id="btn_delete" type="button" class="btn btn-default">
 			 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除</button>
@@ -39,39 +39,59 @@ td,th{
 	<thead>
 		<tr>
 			<th data-visible="false">ID</th>
-			<th>用户名</th>
-			<th>姓名</th>
-			<th>年龄</th>
-			<th>学号</th>
-			<th>性别</th>
-			<th>邮箱</th>
-			<th>操作</th>
+			<th>类别</th>
+			<th>级别</th>
+			<th>原因</th>
+			<th>时间</th>
+			<th>状态</th>
+			<th>备注</th>
 		</tr>
 	</thead>
 	<tbody>
 {% for contact in contacts %}
 		<tr>
 			<td>{{ contact.id }}</td>
-			<td>{{ contact.username }}</td>
-			<td>{{ contact.name }}</td>
-			<td>{{ contact.age }}</td>
-			<td>{{ contact.idnumber }}</td>
 			<td>
-			{% ifequal contact.sex 0 %}
-				女
+			{% ifequal contact.category 0 %}
+				奖励
 			{% else %}
-				男
+				惩罚
 			{% endifequal %}
 			</td>
-			<td>{{ contact.email }}</td>
-			<td width="170">
-			<a href="/appraise/studentUpdate?id={{ contact.id }}" data-toggle="modal" data-target="#upModal">
-			<span class="glyphicon glyphicon-pencil"></span></a>
-			| 
-			<a href="/appraise/studentDelete?id={{ contact.id }}"  data-toggle="modal" data-target="#deModal">
-          <span class="glyphicon glyphicon-remove"></span>
-        </a>
-		</td>
+			<td>
+			{% if contact.category == 0 %}
+				{% if contact.level == 0 %}
+				校级奖学金
+				{% elif contact.level == 1 %}
+				省级奖学金
+				{% else %}
+				国家奖学金
+				{% endif %}
+			{% else %}
+				{% if contact.level == 0 %}
+				批评教育
+				{% elif contact.level == 1 %}
+				全校通报
+				{% elif contact.level == 2 %}
+				留校查看
+				{% else %}
+				热令退学
+				{% endif %}
+			{% endif %}
+			</td>
+			<td>{{ contact.reason }}</td>
+			<td>{{ contact.date }}</td>
+			<td>
+			{% if contact.category == 0 %}
+				未审核
+			{% elif contact.category == 1 %}
+				通过
+			{% else %}
+				未通过
+			{% endif %}
+			
+			</td>
+			<td>{{ contact.remark }}</td>
 		</tr>
 {% endfor %}
 	</tbody>
@@ -79,176 +99,6 @@ td,th{
 
 
 	 </div>
-	<!--新增模拟框-->
-	<div class="modal fade" id="adModal" tabindex="-1" role="dialog" aria-labelledby="adModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-					&times;
-				</button>
-				<h4 class="modal-title" id="adModalLabel">
-					新增学生信息
-				</h4>
-			</div>
-			<div class="modal-body">
-			
-				<form class="form-horizontal" role="form" action="/appraise/stuadd/" method="post">
-				{% csrf_token %}
-				<div class="form-group">
-					<label for="ausername" class="col-sm-2 control-label">用户名</label>
-					<div class="col-sm-10">
-					  <input type="text" class="form-control" id="ausername" name="ausername">
-					</div>
-				  </div>
-				  <div class="form-group">
-					<label for="aname" class="col-sm-2 control-label">姓名</label>
-					<div class="col-sm-10">
-					  <input type="text" class="form-control" id="aname" name="aname">
-					</div>
-				  </div>
-				  <div class="form-group">
-					<label for="aage" class="col-sm-2 control-label">年龄</label>
-					<div class="col-sm-10">
-					  <input type="text" class="form-control" id="aage" name="aage">
-					</div>
-				  </div>
-				  <div class="form-group">
-					<label for="aidnumber" class="col-sm-2 control-label">学号</label>
-					<div class="col-sm-10">
-					  <input type="text" class="form-control" id="aidnumber" name="aidnumber">
-					</div>
-				  </div>
-
-				  <div class="form-group">
-					<label for="asex" class="col-sm-2 control-label">性别</label>
-					<div class="col-sm-10">
-					  <select class="form-control" id="asex" name="asex">
-                        <option selected>&nbsp;&nbsp;&nbsp;&nbsp;请选择</option>
-                        <option value="0">&nbsp;&nbsp;&nbsp;&nbsp;男</option>
-						<option value="1">&nbsp;&nbsp;&nbsp;&nbsp;女</option>
-						</select>
-					</div>
-				  </div>
-				<div class="form-group">
-					<label for="aemail" class="col-sm-2 control-label">邮箱</label>
-					<div class="col-sm-10">
-					  <input type="email" class="form-control" id="aemail" name="aemail">
-					</div>
-				</div>
-			</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">关闭
-					</button>
-					<button type="submit" class="btn btn-primary">
-						提交新增
-					</button>
-				</div>
-				</form>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal -->
-</div>
-	<!--更改模拟框 -->
-	<div class="modal fade" id="upModal" tabindex="-1" role="dialog" aria-labelledby="upModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-					&times;
-				</button>
-				<h4 class="modal-title" id="upModalLabel">
-					更改学生信息
-				</h4>
-			</div>
-			<div class="modal-body">
-			
-			<form class="form-horizontal" role="form" action="/appraise/stupdate/" method="post">
-				{% csrf_token %}
-				<div class="form-group">
-					<label for="uusername" class="col-sm-2 control-label">姓名</label>
-					<div class="col-sm-10">
-					  <input type="text" class="form-control" id="uusername" name="uusername">
-					</div>
-				  </div>
-				  <div class="form-group">
-					<label for="uname" class="col-sm-2 control-label">姓名</label>
-					<div class="col-sm-10">
-					  <input type="text" class="form-control" id="uname" name="uname">
-					</div>
-				  </div>
-				  <div class="form-group">
-					<label for="uage" class="col-sm-2 control-label">年龄</label>
-					<div class="col-sm-10">
-					  <input type="text" class="form-control" id="uage" name="uage">
-					</div>
-				  </div>
-				  <div class="form-group">
-					<label for="uidnumber" class="col-sm-2 control-label">学号</label>
-					<div class="col-sm-10">
-					  <input type="text" class="form-control" id="uidnumber" name="uidnumber">
-					</div>
-				  </div>
-
-				  <div class="form-group">
-					<label for="usex" class="col-sm-2 control-label">性别</label>
-					<div class="col-sm-10">
-					  <select class="form-control" id="usex" name="usex">
-                        <option value="1">&nbsp;&nbsp;&nbsp;&nbsp;男</option>
-						<option value="0">&nbsp;&nbsp;&nbsp;&nbsp;女</option>
-						</select>
-					</div>
-				  </div>
-				<div class="form-group">
-					<label for="uemail" class="col-sm-2 control-label">邮箱</label>
-					<div class="col-sm-10">
-					  <input type="email" class="form-control" id="uemail" name="uemail">
-					</div>
-				  </div>
-				
-				<input type="hidden" id="upid" name="upid">
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">关闭
-				</button>
-				<button type="submit" class="btn btn-primary">
-					提交更改
-				</button>
-			</div>
-			</form>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal -->
-</div>
-
-	<!--删除模拟框-->
-	<div class="modal fade" id="deModal" tabindex="-1" role="dialog" aria-labelledby="deModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-					&times;
-				</button>
-				<h4 class="modal-title" id="deModalLabel">
-					警告
-				</h4>
-			</div>
-			<div class="modal-body">
-			你确定要删除该条信息吗?
-			</div>
-			<form action="/appraise/studel/" method="post">
-			{% csrf_token %}
-			<input type="hidden" id="delid" name="delid">
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">关闭
-				</button>
-				<button type="submit" class="btn btn-primary">
-					提交删除
-				</button>
-			</div>
-			</form>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal -->
-</div>
-
 
  </div>
  

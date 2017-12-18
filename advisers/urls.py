@@ -8,7 +8,9 @@ urlpatterns = [
 	url(r'^sanconfirmy/',views.sanctionConfirmy),
 	url(r'^sanconfirmn/',views.sanctionConfirmn),
 	url(r'^chanpas/',views.changePassword),
+	url(r'^pasconfirm/',views.passwordConfirm),
 	url(r'^chanmes/',views.changeMessage),
+	url(r'^mesconfirm/',views.messageConfirm),
 ]
 
 

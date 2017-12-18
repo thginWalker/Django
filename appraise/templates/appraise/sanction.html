@@ -128,12 +128,13 @@ td,th{
 			</div>
 			<div class="modal-body">
 			
-			<form class="form-horizontal" role="form" action="/appraise/stuadd/" method="post">
+			<form class="form-horizontal" role="form" action="/appraise/sanadd/" method="post">
 				{% csrf_token %}
 				  <div class="form-group">
 					<label for="aname" class="col-sm-2 control-label">姓名</label>
 					<div class="col-sm-10">
 					<select class="form-control" id="aname" name="aname">
+					<option selected = "selected">&nbsp;&nbsp;&nbsp;&nbsp;请选择--</option>
 					 {% for contact in contacts %}
 						<option value ="{{ contact.id }}">&nbsp;&nbsp;&nbsp;&nbsp;{{ contact.name }}</option>
 						{% endfor %}
@@ -143,7 +144,7 @@ td,th{
 				 <div class="form-group">
                 <label for="atime" class="col-sm-2 control-label">时间</label>
                 <div class="input-group date form_datetime col-md-10" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
-                    <input type="text" class="form-control" value="" readonly name="utime">
+                    <input type="text" class="form-control" value="" readonly name="atime">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 					<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                 </div>
@@ -357,14 +358,11 @@ $("input").val('');
 $("#upid").val(row[0]);//修改赋ID
 $("#delid").val(row[0]);//删除赋ID
 $("#uname").val(row[1]); //姓名
+$("#udate").val(row[4]);//时间
+$("#ucategory").val(row[1]);//类别
+$("#ureason").val(row[3]);//原因
 
 
-$("#utime").val(row[2]);
-$("#uidnumber").val(row[3]);
-
-
-
-$("#uemail").val(row[5]);
 });
 
 

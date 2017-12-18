@@ -6,30 +6,37 @@
     <link href="{% static 'appraise/assets/css/bootstrap.min.css' %}" rel="stylesheet" />
     <link href="{% static 'appraise/bootstrap3-editable/css/bootstrap-editable.css' %}" rel="stylesheet" />
     <link href="{% static 'appraise/bootstrap-table/css/bootstrap-table.min.css' %}" rel="stylesheet" />
+	
 
-	<script src="{% static 'appraise/assets/js/jquery-2.0.3.min.js' %}"></script>
-	<script src="{% static 'appraise/assets/bootstrap3/js/bootstrap.min.js' %}"></script>
-	<script src="{% static 'appraise/bootstrap3-editable/js/bootstrap-editable.min.js' %}"></script>
-	<script src="{% static 'appraise/bootstrap-table/js/bootstrap-table.min.js' %}"></script>
-	<script src="{% static 'appraise//bootstrap-table/js/bootstrap-table-zh-CN.min.js' %}"></script>
+<script src="{% static 'appraise/assets/js/jquery-2.0.3.min.js' %}"></script>
+<script src="{% static 'appraise/assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'appraise/bootstrap3-editable/js/bootstrap-editable.min.js' %}"></script>
+<script src="{% static 'appraise/bootstrap-table/js/bootstrap-table.min.js' %}"></script>
+<script src="{% static 'appraise/bootstrap-table/js/bootstrap-table-zh-CN.min.js' %}"></script>
+
 <style>
-	td,th{
-	   vertical-align: middle;
-	   text-align: center
-			}
-	.form-horizontal{
-	margin:0 auto;
-	}
-	.form-group{
-		margin:30px 0;
-	}
-	.form-control{
-		width:400px;
-	}
-	#center{
-	 margin:0 auto;
-	 width:450px;
-	}
+td,th{
+   vertical-align: middle;
+   text-align: center
+        }
+.form-horizontal{
+margin:0 auto;
+}
+.form-group{
+	margin:20px 0;
+}
+.form-control{
+	width:400px;
+}
+#center{
+ margin:0 auto;
+ width:450px;
+}
+.form-group span{
+color:red;
+margin-top:3px;
+float:left;
+}
 </style>
 <div class="col-sm-8">
 	 <div class="panel panel-default">
@@ -37,30 +44,34 @@
 			<h3 class="panel-title text-center">更改个人密码</h3>
 		 </div>
 	<div class="panel-body">
-	<form class="form-horizontal" role="form">
+	<form class="form-horizontal" action="/advisers/pasconfirm/" method="post">
+	 {% csrf_token %}
 		<div class="form-group">
-			<label for="uusername" class="col-sm-2 control-label">原始密码</label>
+			<label for="ancent" class="col-sm-2 control-label">原始密码</label>
 			<div class="col-sm-10">
-			<input type="password" class="form-control" id="uusername" name="uusername">
+			<input type="password" class="form-control" id="ancent" name="ancent" required>
+			<span id="spanancent">&nbsp;<span>
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="uusername" class="col-sm-2 control-label">修改密码</label>
+			<label for="update" class="col-sm-2 control-label">修改密码</label>
 			<div class="col-sm-10">
-			<input type="password" class="form-control" id="uusername" name="uusername">
+			<input type="password" class="form-control" id="update" name="update" required>
+			<span id="spanupdate">&nbsp;<span>
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="uusername" class="col-sm-2 control-label">确认密码</label>
+			<label for="confirm" class="col-sm-2 control-label">确认密码</label>
 			<div class="col-sm-10">
-			<input type="password" class="form-control" id="uusername" name="uusername">
+			<input type="password" class="form-control" id="confirm" name="confirm" required>
+			<span id="spanconfirm">&nbsp;<span>
 			</div>
 		</div>
 		
 		<div id="center"> 
 			<div class="btn-group">
-				 <a type="button" class="btn btn-default"  id="update">
-				 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改</a>
+				 <button type="submit" class="btn btn-default"  id="btupdate">
+				 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改</button>
 			 </div>
 			 <div class="btn-group">
 				 <button   type="reset" class="btn btn-default" style="margin-left:20px;">
@@ -68,31 +79,101 @@
 			 </div>
 		 </div>
 	</form>
-	<!--href="/appraise/studentUpdate?id={{ contact.id }}"-->
+	
+	
+		<!--提示模拟框-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="deModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="deModalLabel">
+					提示
+				</h4>
+			</div>
+			<div class="modal-body">
+				<span id="message"></span>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+				</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
 
+
+	{% if messages %}
+	<script>
+    {% for msg in messages %}
+		$('#message').html('{{ msg.message }}');
+		$('#myModal').modal();
+        alert('{{ msg.message }}');
+    {% endfor %}
+	</script>
+	{% endif %}
+	
+	
+	</div>
+
+
+	
+	
+	
  </div>
+</div>
  
- <script>
+  <script>
  $(function(){
-    $('#update').click(function(){
-	alert("sdsd");
-         $.ajax({
-             type: "GET",
-           //  url: "test.json",
-             data: {username:$("#username").val(), content:$("#content").val()},
-             dataType: "json",
-             success: function(data){
-                         $('#resText').empty();   //清空resText里面的所有内容
-                         var html = ''; 
-                         $.each(data, function(commentIndex, comment){
-                               html += '<div class="comment"><h6>' + comment['username']
-                                         + ':</h6><p class="para"' + comment['content']
-                                         + '</p></div>';
-                         });
-                         $('#resText').html(html);
-                      }
-         });
-    });
+
+
+	$('#ancent').bind('input propertychange', function () {
+            if(this.value.length <=5)
+			$('#spanancent').html('原始密码不能小于5位!');
+			else
+			$('#spanancent').html('&nbsp;');
+			return false;
+        });
+	
+	$('#ancent').blur(function(){
+			if($('#ancent').val() == '')
+			$('#spanancent').html('原始密码不能为空!');
+	});
+	
+	$('#update').bind('input propertychange', function () {
+            if(this.value.length <=5)
+			$('#spanupdate').html('修改密码不能小于5位!');
+			else
+			$('#spanupdate').html('&nbsp;');
+        });
+	
+	$('#update').blur(function(){
+			if($('#update').val() == '')
+			$('#spanupdate').html('修改密码不能为空!');
+			if($('#ancent').val() == $('#update').val())
+			$('#spanupdate').html('修改密码和原始密码不能一致!');
+	});
+	
+	$('#confirm').bind('input propertychange', function () {
+            if(this.value != $('#update').val())
+			$('#spanconfirm').html('确认密码和修改密码不一致!');
+			else
+			$('#spanconfirm').html('&nbsp;');
+        });
+	
+	$('#confirm').blur(function(){
+			if($('#confirm').val() == '')
+			$('#spanconfirm').html('确认密码不能为空!');
+	});
+	
+	
+	$('#btupdate').click(function(){
+	
+	
+	});
+
 });
  
  

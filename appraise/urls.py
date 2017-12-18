@@ -9,6 +9,7 @@ urlpatterns = [
 	url(r'^stupdate/',views.studentUpdate),
 	url(r'^studel',views.studentDelete),
 	url(r'^sanction/',views.sanctionManage),
+	url(r'^sanadd/',views.sanctionAddtion),
 	url(r'^chanpas/',views.changePassword),
 	url(r'^pasconfirm/',views.passwordConfirm),
 	url(r'^chanmes/',views.changeMessage),

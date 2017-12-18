@@ -21,32 +21,37 @@ def login(request):
 	#登录验证 0管理员 1老师 2学生
 	if role == '0':
 		#return HttpResponse("Hello world ! ")
-		result = user.objects.get(username = username,password = password,flag = 0)
-		if result:
-			#比较成功，跳转index
-			request.session['key'] = result.name
-			return render(request,"appraise/index.html")
-		else:
-			#比较失败，还在login
-			return render(request,"login.html")
+		try:
+			result = user.objects.get(username = username,password = password,flag = 0)
+			if result:
+				#比较成功，跳转index
+				request.session['key'] = result.name
+				return render(request,"appraise/index.html")
+		except:
+			pass
+		return render(request,"login.html")
 	elif role == '1':
-		result = user.objects.get(username = username,password = password,flag = 1)
-		if result:
-			#比较成功，跳转index
-			request.session['key'] = result.name
-			return render(request,"advisers/index.html")
-		else:
+		try:
+			result = user.objects.get(username = username,password = password,flag = 1)
+			if result:
+				#比较成功，跳转index
+				request.session['key'] = result.name
+				return render(request,"advisers/index.html")
+		except:
+			pass
 			#比较失败，还在login
-			return render(request,"login.html")
+		return render(request,"login.html")
 	elif role == '2':
-		result = user.objects.get(username = username,password = password,flag = 2)
-		if result:
-			#比较成功，跳转index
-			request.session['key'] = result.name
-			return render(request,"colleger/index.html")
-		else:
+		try:
+			result = user.objects.get(username = username,password = password,flag = 2)
+			if result:
+				#比较成功，跳转index
+				request.session['key'] = result.name
+				return render(request,"colleger/index.html")
+		except:
+			pass
 			#比较失败，还在login
-			return render(request,"login.html")
+		return render(request,"login.html")
 	else:
 		return render(request,"login.html")
 

@@ -41,10 +41,9 @@
                         <li class="active">
                         <a class="navbar-brand" href="index.html">奖罚管理系统</a>
                         </li>
-
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a>欢迎您,<span class="badge">student</span></a>
+                        <li><a>欢迎您,<span class="badge">{{ request.session.key }}</span></a>
                         </li>
                         <li><a href="/logout"><span class="glyphicon glyphicon-lock"></span>安全退出</a>
                         </li>
@@ -70,7 +69,7 @@
                             <ul class="list-group">
                               <li class="list-group-item">
                                 <!-- 利用data-target指定URL -->
-                                <a href="/colleger/student">
+                                <a href="/colleger/message/">
 										<i class="icon-double-angle-right"></i>
 										查看信息
 									</a>
@@ -88,12 +87,12 @@
                         <div id="collapseListGroup2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="collapseListGroupHeading2">
                             <ul class="list-group">
                               <li class="list-group-item">
-                                <a href="/colleger/chanpas">
+                                <a href="/colleger/chanpas/">
 										<i class="icon-double-angle-right"></i>更改密码
                                 </a>
                               </li>
                               <li class="list-group-item">
-                                <a href="/colleger/chanmes">
+                                <a href="/colleger/chanmes/">
 										<i class="icon-double-angle-right"></i>更改信息
 								</a>
                               </li>

@@ -82,6 +82,17 @@ def sanctionManage(request):
 	#输出调试 
 	return render(request, 'appraise/sanction.html', {'contacts': list,'name':name,'user':userdata})
 
+#添加奖罚信息
+def sanctionAddtion(request):
+	if request.POST:
+		name = request.POST['aname']#user为学生用户的id
+		category = request.POST['acategory']
+		level = request.POST['alevel']
+		reason = request.POST['areason']
+		date = request.POST['atime']
+	result = commit.objects.create(user = name, category = category, level = level, reason = reason, date = date,examine = 0)
+	sanctionManage(request)
+
 #更改密码跳转
 def changePassword(request):
 	return render(request, 'appraise/chanpas.html')
