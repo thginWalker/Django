@@ -36,6 +36,7 @@ td,th{
 	
 <thead>
 		<tr>
+			<th data-visible="false">id</th>
 			<th>姓名</th>
 			<th>类别</th>
 			<th>级别</th>
@@ -49,7 +50,7 @@ td,th{
 {% for contact in contacts %}
  
 		<tr>
-		
+	<td>{{ contact.id }}</td> 
     <td>{{ contact.name }}</td>  
    <td>
 		{% if contact.category == 0 %}
@@ -125,8 +126,7 @@ td,th{
 			</div>
 			<form action="/advisers/sanconfirmy/" method="post">
 			{% csrf_token %}
-			<input type="hidden" name="sanidy" value="{{ contact.id }}">
-			<input type="hidden" name="examiney" value="1">
+			<input type="hidden" name="sanidy" id="sanidy">
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 				</button>
@@ -156,8 +156,7 @@ td,th{
 			</div>
 			<form action="/advisers/sanconfirmn/" method="post">
 			{% csrf_token %}
-			<input type="hidden" name="sanidn" value="{{ contact.id }}">
-			<input type="hidden" name="examinen" value="0">
+			<input type="hidden" name="sanidn" id="sanidn">
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 				</button>
@@ -195,5 +194,19 @@ td,th{
     sortable:true,
 });
 
+
+
+$("#table").on("click-row.bs.table",function(e,row,ele){
+$(".danger").removeClass("danger");
+$(ele).addClass("danger");
+
+console.log(row);
+//赋值
+$("input").val(''); 
+$("#sanidy").val(row[0]);//修改赋ID
+$("#sanidn").val(row[0]);//否决赋ID
+
+
+});
 </script>
     {% endblock %}

@@ -110,7 +110,6 @@ float:left;
     {% for msg in messages %}
 		$('#message').html('{{ msg.message }}');
 		$('#myModal').modal();
-        alert('{{ msg.message }}');
     {% endfor %}
 	</script>
 	{% endif %}

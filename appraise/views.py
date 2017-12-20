@@ -15,7 +15,7 @@ from django.contrib import messages
 
 #显示学生管理信息
 def studentManage(request):
-    list = user.objects.all()
+    list = user.objects.filter(flag = 2)
     return render(request, 'appraise/student.html', {'contacts': list})
 
 #学生新增信息
@@ -169,13 +169,14 @@ def sanctionDelete(request):
 def changePassword(request):
 	return render(request, 'appraise/chanpas.html')
 
+#更改密码确定
 def passwordConfirm(request):
 	if request.POST:
 		ancent = request.POST['ancent']
 		update = request.POST['update']
 		#confirm = request.POST['confirm']
 	name = request.session.get('key')
-	result = user.objects.get(username = name,password = ancent,flag = 0)
+	result = user.objects.get(name = name,password = ancent,flag = 0)
 	id = result.id
 	if result:
 		modify = user.objects.get(id=id)
@@ -188,13 +189,13 @@ def passwordConfirm(request):
 
 
 
-#更改信息
-
+#更改信息跳转
 def changeMessage(request):
 	name =request.session.get('key')
-	result = user.objects.get(username = name,flag = 0)
+	result = user.objects.get(name = name,flag = 0)
 	return render(request, 'appraise/chanmes.html',{'contacts': result}) 
 
+#更改信息确定
 @csrf_exempt
 def messageConfirm(request):
 	if request.POST:
@@ -205,8 +206,11 @@ def messageConfirm(request):
 		sex = request.POST['sex']
 		email = request.POST['email']
 	keyName = request.session.get('key')
-	result = user.objects.get(username = keyName,flag = 0)
-	id = result.id
+	try:
+		result = user.objects.get(name = keyName,flag = 0)
+		id = result.id
+	except:
+		pass
 	if result:
 		modify = user.objects.get(id=id)
 		modify.username = username
@@ -216,7 +220,7 @@ def messageConfirm(request):
 		modify.sex = sex
 		modify.email = email
 		modify.save()
-		list = user.objects.get(username = keyName,flag = 0)
+		list = user.objects.get(name = keyName,flag = 0)
 		messages.error( request, '修改成功!', extra_tags='bg-warning text-warning')
 	else:
 		messages.error( request, '修改失败!', extra_tags='bg-warning text-warning')

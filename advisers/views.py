@@ -15,7 +15,7 @@ from django.contrib import messages
 
 #显示学生管理信息
 def studentManage(request):
-    list = user.objects.all()
+    list = user.objects.filter(flag = 2)
     return render(request, 'advisers/student.html', {'contacts': list})
 
 
@@ -38,25 +38,50 @@ def sanctionManage(request):
 	return render(request, 'advisers/sanction.html', {'contacts': list})
 
 #通过审核
+@csrf_exempt
 def sanctionConfirmy(request):
 	if request.POST:
 		id = request.POST['sanidy']
-		examine = request.POST['examiney']
-	return HttpResponse(id)
 	modify = commit.objects.get(id=id)
-	modify.examine = examine
+	modify.examine = 1
 	modify.save()
-	sanctionManage(request)
+	list = commit.objects.all()
+	result = []
+	name = []  
+	for obj in list:
+		result.append(obj.user)
+	for var in result:
+		data = user.objects.get(id = var).name
+		name.append(data)
+	i = 0
+	for obj in list:
+		obj.name = name[i]
+		i = i + 1
+	#输出调试 
+	return render(request, 'advisers/sanction.html', {'contacts': list})
 
 #否决审核
+@csrf_exempt
 def sanctionConfirmn(request):
 	if request.POST:
 		id = request.POST['sanidn']
-		examine = request.POST['examinen']
 	modify = commit.objects.get(id=id)
-	modify.examine = examine
+	modify.examine = 2
 	modify.save()
-	sanctionManage(request)
+	list = commit.objects.all()
+	result = []
+	name = []  
+	for obj in list:
+		result.append(obj.user)
+	for var in result:
+		data = user.objects.get(id = var).name
+		name.append(data)
+	i = 0
+	for obj in list:
+		obj.name = name[i]
+		i = i + 1
+	#输出调试 
+	return render(request, 'advisers/sanction.html', {'contacts': list})
 
 #更改密码跳转
 def changePassword(request):

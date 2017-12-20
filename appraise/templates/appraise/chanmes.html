@@ -62,9 +62,9 @@ margin:0;
 			</div>
 		</div>
 		<div class="form-group" id="idnumber">
-			<label class="col-sm-4 control-label">学号</label>
+			<label class="col-sm-4 control-label">身份证号码</label>
 			<div class="col-sm-8">
-			<label class="col-sm-2 control-label">{{ contacts.username }}</label>
+			<label class="col-sm-2 control-label">{{ contacts.idnumber }}</label>
 			</div>
 		</div>
 		<div class="form-group" id="sex">
@@ -139,7 +139,7 @@ margin:0;
 	$('#username').html('<label for="username" class="col-sm-2 control-label">用户名</label><div class="col-sm-10"><input type="text" class="form-control" name="username" value="{{ contacts.username }}"></div>');
 	$('#name').html('<label for="name" class="col-sm-2 control-label">姓名</label><div class="col-sm-10"><input type="text" class="form-control" name="name" value="{{ contacts.name }}"></div>');
 	$('#age').html('<label for="age" class="col-sm-2 control-label">年龄</label><div class="col-sm-10"><input type="text" class="form-control" name="age"  value="{{ contacts.age }}"></div>');
-	$('#idnumber').html('<label for="idnumber" class="col-sm-2 control-label">工号</label><div class="col-sm-10"><input type="text" class="form-control" name="idnumber" value="{{ contacts.idnumber }}"></div>');
+	$('#idnumber').html('<label for="idnumber" class="col-sm-2 control-label">身份证号码</label><div class="col-sm-10"><input type="text" class="form-control" name="idnumber" value="{{ contacts.idnumber }}"></div>');
 	$('#sex').html('<div class="form-group" id="sex-unique"><label for="sex" class="col-sm-2 control-label">性别</label><div class="col-sm-10"><select class="form-control" name="sex" id="select"><option selected>&nbsp;&nbsp;&nbsp;&nbsp;请选择</option><option value="1">&nbsp;&nbsp;&nbsp;&nbsp;男</option><option value="0">&nbsp;&nbsp;&nbsp;&nbsp;女</option></select></div></div>');
 	$('#email').html('<label for="email" class="col-sm-2 control-label">邮箱</label><div class="col-sm-10"><input type="email" class="form-control" name="email" value="{{ contacts.email }}"></div>');
 	
