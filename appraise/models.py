@@ -15,7 +15,7 @@ class user(models.Model):
 	flag = models.IntegerField()
 	remark = models.CharField(max_length=50)
 	def __unicode__(self):
-		return self.username
+		return self.name
 
 
 class commit(models.Model):
@@ -23,7 +23,7 @@ class commit(models.Model):
 	category = models.IntegerField()
 	level = models.IntegerField()
 	reason = models.CharField(max_length=18)
-	date = models.IntegerField()
+	date = models.CharField(max_length=28)
 	examine = models.IntegerField()
 	remark = models.CharField(max_length=50)
 	def __unicode__(self):

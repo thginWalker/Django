@@ -67,6 +67,32 @@ def studentDelete(request):
 #显示奖罚管理信息
 def sanctionManage(request):
 	list = commit.objects.all()
+	userdata = user.objects.all()
+	result = []
+	name = []  
+	for obj in list:
+		result.append(obj.user)
+	for var in result:
+		data = user.objects.get(id = var).name
+		name.append(data)
+	i = 0
+	for obj in list:
+		obj.name = name[i]
+		i = i + 1
+	#输出调试 
+	return render(request, 'appraise/sanction.html', {'contacts': list,'name':name,'user':userdata})
+
+#添加奖罚信息
+@csrf_exempt
+def sanctionAddtion(request):
+	if request.POST:
+		name = request.POST['aname']#user为学生用户的id
+		category = request.POST['acategory']
+		level = request.POST['alevel']
+		reason = request.POST['areason']
+		date = request.POST['atime']
+	result = commit.objects.create(user = name, category = category, level = level, reason = reason, date = date,examine = 0)
+	list = commit.objects.all()
 	result = []
 	name = []  
 	for obj in list:
@@ -82,16 +108,62 @@ def sanctionManage(request):
 	#输出调试 
 	return render(request, 'appraise/sanction.html', {'contacts': list,'name':name,'user':userdata})
 
-#添加奖罚信息
-def sanctionAddtion(request):
+#更改奖罚信息
+@csrf_exempt
+def sanctionUpdate(request):
 	if request.POST:
-		name = request.POST['aname']#user为学生用户的id
-		category = request.POST['acategory']
-		level = request.POST['alevel']
-		reason = request.POST['areason']
-		date = request.POST['atime']
-	result = commit.objects.create(user = name, category = category, level = level, reason = reason, date = date,examine = 0)
-	sanctionManage(request)
+		id = request.POST['upid']
+		username = request.POST['uname']
+		category = request.POST['ucategory']
+		level = request.POST['ulevel']
+		reason = request.POST['ureason']
+		date = request.POST['utime']
+	update = commit.objects.get(id=id)
+	update.user = username
+	update.category = category
+	update.level = level
+	update.reason = reason
+	update.date = date
+	update.save()
+	list = commit.objects.all()
+	userdata = user.objects.all()
+	result = []
+	name = []  
+	for obj in list:
+		result.append(obj.user)
+	for var in result:
+		data = user.objects.get(id = var).name
+		name.append(data)
+	i = 0
+	for obj in list:
+		obj.name = name[i]
+		i = i + 1
+	#输出调试 
+	return render(request, 'appraise/sanction.html', {'contacts': list,'name':name,'user':userdata})
+
+#删除奖罚信息
+@csrf_exempt
+def sanctionDelete(request):
+	if request.POST:
+		id = request.POST['delid']
+	result = commit.objects.get(id = id)
+	result.delete()
+	list = commit.objects.all()
+	result = []
+	name = []  
+	for obj in list:
+		result.append(obj.user)
+	for var in result:
+		data = user.objects.get(id = var).name
+		name.append(data)
+	i = 0
+	for obj in list:
+		obj.name = name[i]
+		i = i + 1
+	userdata = user.objects.all()
+	#输出调试 
+	return render(request, 'appraise/sanction.html', {'contacts': list,'name':name,'user':userdata})
+
 
 #更改密码跳转
 def changePassword(request):
