@@ -17,6 +17,9 @@ def login(request):
 		username = request.POST['username']
 		password = request.POST['password']
 		role = request.POST['role']#登录角色
+	else:
+		# 非 POST 请求（例如直接访问 /login/）只显示登录页，避免 role 未定义而报 NameError
+		return render(request, 'login.html')
 	
 	#登录验证 0管理员 1老师 2学生
 	if role == '0':
@@ -67,6 +70,7 @@ def register(request):
 
 #退出登录
 def logout(request):
-	del request.session['key']
-	return render(request, 'login.html')  
+	# 未登录时直接访问 /logout/ 不应抛 KeyError
+	request.session.pop('key', None)
+	return render(request, 'login.html')
 
